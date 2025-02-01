@@ -1,0 +1,16 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  text-align: center;
+}
+
+.content {
+  padding-bottom: 60px; /* Space for mobile navbar */
+}
+
+@media (min-width: 768px) {
+  .content {
+    margin-right: 60px; /* Space for desktop navbar */
+  }
+}
