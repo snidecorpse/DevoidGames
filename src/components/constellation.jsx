@@ -1,148 +1,129 @@
-import React, { useRef, useEffect } from "react";
-import * as THREE from "three";
-import "./constellation.css";
+import React, { useRef, useEffect } from 'react';
+import * as THREE from 'three';
+import './constellation.css';
 
 const Constellation = () => {
-  const containerRef = useRef(null);
+  const mountRef = useRef(null);
 
   useEffect(() => {
-    // === SETUP SCENE, CAMERA, AND RENDERER ===
+    // Set up scene, camera, and renderer.
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000); // black background
 
-    const width = containerRef.current.clientWidth;
-    const height = containerRef.current.clientHeight;
+    // Get container dimensions.
+    const container = mountRef.current;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    camera.position.z = 50;
+    // Position the camera so that all objects are visible.
+    camera.position.z = 400;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(width, height);
-    containerRef.current.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
-    // === CREATE BACKGROUND STARS ===
-    const starCount = 500;
-    const starsGeometry = new THREE.BufferGeometry();
-    const starPositions = new Float32Array(starCount * 3);
-
-    for (let i = 0; i < starCount; i++) {
-      // Spread stars randomly within a large cube
-      starPositions[i * 3] = (Math.random() - 0.5) * 200;
-      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 200;
-      starPositions[i * 3 + 2] = (Math.random() - 0.5) * 200;
-    }
-    starsGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
-
-    const starsMaterial = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 1,
-      sizeAttenuation: true,
+    // ---- Create Three circles ----
+    // These will be our “nodes” in the constellation.
+    const circles = [];
+    const circleGeometry = new THREE.CircleGeometry(20, 32);
+    const circleMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    // Define positions (you can adjust these as needed).
+    const circlePositions = [
+      new THREE.Vector3(-200, 0, 0),  // left circle
+      new THREE.Vector3(0, 100, 0),   // top/middle circle
+      new THREE.Vector3(200, 0, 0)    // right circle
+    ];
+    circlePositions.forEach((pos) => {
+      const circleMesh = new THREE.Mesh(circleGeometry, circleMaterial);
+      circleMesh.position.copy(pos);
+      scene.add(circleMesh);
+      circles.push(circleMesh);
     });
-    const stars = new THREE.Points(starsGeometry, starsMaterial);
-    scene.add(stars);
 
-    // === CREATE MAIN BRIGHT SPHERES ===
-    const sphereCount = 4;
-    const mainSpheres = [];
-    const sphereGeometry = new THREE.SphereGeometry(2, 32, 32);
+    // ---- Create a Particle “String” Effect ----
+    // We define several control points for our curve.
+    // The curve starts off to the left, passes near the circles, and ends off to the right.
+    const controlPoints = [
+      new THREE.Vector3(-300, -50, 0),           // start (off-screen left)
+      new THREE.Vector3(-200, 0, 0),             // near left circle
+      new THREE.Vector3(0, 150, 0),              // near top circle
+      new THREE.Vector3(200, 0, 0),              // near right circle
+      new THREE.Vector3(300, -50, 0)             // end (off-screen right)
+    ];
+    const curve = new THREE.CatmullRomCurve3(controlPoints);
 
-    // Create spheres with slightly different colors and random initial positions.
-    for (let i = 0; i < sphereCount; i++) {
-      const sphereMaterial = new THREE.MeshBasicMaterial({
-        color: new THREE.Color().setHSL(Math.random(), 1, 0.5),
-      });
-      const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-      sphere.position.set(
-        (Math.random() - 0.5) * 100,
-        (Math.random() - 0.5) * 100,
-        0
-      );
-      scene.add(sphere);
-      mainSpheres.push(sphere);
-    }
+    // Generate an array of points along the curve.
+    const curvePoints = curve.getPoints(100);
+    const pointsGeometry = new THREE.BufferGeometry().setFromPoints(curvePoints);
 
-    // === MOUSE INTERACTION SETUP ===
-    const mouse = new THREE.Vector2(0, 0);
-    const raycaster = new THREE.Raycaster();
-    // For each main sphere, we’ll track a “target” position that we interpolate toward.
-    const targetPositions = mainSpheres.map((sphere) => sphere.position.clone());
+    // Create a PointsMaterial for our particle effect.
+    const pointsMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 3,
+      sizeAttenuation: true
+    });
 
-    // Update the target positions based on mouse movement.
-    const onMouseMove = (event) => {
-      // Normalize mouse coordinates (-1 to 1)
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    // Create the Points object that will display our “string” of particles.
+    const particleString = new THREE.Points(pointsGeometry, pointsMaterial);
+    scene.add(particleString);
 
-      // Convert the normalized position to a point in 3D space on the z=0 plane.
-      const vector = new THREE.Vector3(mouse.x, mouse.y, 0.5);
-      vector.unproject(camera);
-      const dir = vector.sub(camera.position).normalize();
-      const distance = -camera.position.z / dir.z;
-      const pos = camera.position.clone().add(dir.multiplyScalar(distance));
-
-      // Set a slightly offset target for each main sphere.
-      mainSpheres.forEach((sphere, index) => {
-        const offset = new THREE.Vector3(
-          (index - (sphereCount - 1) / 2) * 5,
-          (index - (sphereCount - 1) / 2) * 5,
-          0
-        );
-        targetPositions[index] = pos.clone().add(offset);
-      });
-    };
-
-    window.addEventListener("mousemove", onMouseMove);
-
-    // When clicking, use the raycaster to detect if a main sphere was hit.
-    const onClick = (event) => {
-      // Update the normalized mouse vector
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-      raycaster.setFromCamera(mouse, camera);
-
-      const intersects = raycaster.intersectObjects(mainSpheres);
-      if (intersects.length > 0) {
-        // Redirect to a new page (or use your router to navigate)
-        window.location.href = "/targetPage"; // Change this route as needed.
-      }
-    };
-
-    window.addEventListener("click", onClick);
-
-    // === ANIMATION LOOP ===
+    // ---- Animation Loop ----
+    let frameId;
     const animate = () => {
-      requestAnimationFrame(animate);
+      // Update time (in seconds)
+      const time = Date.now() * 0.002;
 
-      // Smoothly interpolate each sphere toward its target position.
-      mainSpheres.forEach((sphere, index) => {
-        sphere.position.lerp(targetPositions[index], 0.1);
+      // For a gentle idle animation, slightly oscillate some of the curve’s control points.
+      // (Feel free to tweak the multipliers and phases for different effects.)
+      controlPoints[1].y = Math.sin(time) * 20; // left control point oscillates
+      controlPoints[2].y = 150 + Math.cos(time * 0.5) * 20; // top control point oscillates
+      controlPoints[3].y = Math.sin(time) * 20; // right control point oscillates
+
+      // Re-calculate the curve and update the particle geometry.
+      const newCurvePoints = curve.getPoints(100);
+      pointsGeometry.setFromPoints(newCurvePoints);
+      // (Mark the attribute for update if needed.)
+      if (pointsGeometry.attributes.position) {
+        pointsGeometry.attributes.position.needsUpdate = true;
+      }
+
+      // (Optional) You can add a little rotation to the circles to enhance the idle feel.
+      circles.forEach((circle) => {
+        circle.rotation.z += 0.005;
       });
 
-      // Optional: rotate the star field slowly for a subtle dynamic effect.
-      stars.rotation.y += 0.0005;
-
+      // Render the scene.
       renderer.render(scene, camera);
+      frameId = requestAnimationFrame(animate);
     };
     animate();
 
-    // === HANDLE WINDOW RESIZE ===
+    // ---- Handle Resizing ----
     const handleResize = () => {
-      const width = containerRef.current.clientWidth;
-      const height = containerRef.current.clientHeight;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      renderer.setSize(width, height);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
-    // === CLEANUP ON UNMOUNT ===
+    // ---- Cleanup on Unmount ----
     return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("click", onClick);
-      containerRef.current.removeChild(renderer.domElement);
+      cancelAnimationFrame(frameId);
+      window.removeEventListener('resize', handleResize);
+      container.removeChild(renderer.domElement);
+      renderer.dispose();
     };
   }, []);
 
-  return <div className="constellation-container" ref={containerRef}></div>;
+  return (
+    <div className="constellation">
+      <h1 className="constellation-title">Constellation</h1>
+      <div className="constellation-canvas" ref={mountRef} />
+    </div>
+  );
 };
 
 export default Constellation;
