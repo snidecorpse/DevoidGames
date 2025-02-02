@@ -7,21 +7,28 @@ import "./Home.css";
 import db from "../firebase";
 
 const Home = () => {
-  const [username, setUsername] = useState(""); // Store the username
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   const handlePlayClick = async () => {
     if (username.trim() === "") {
-      alert("Please enter a username!"); // Prevent empty usernames
+      alert("Please enter a username!");
       return;
     }
 
-    console.log("Username:", username); // Do something with username
-    navigate(`/game?user=${encodeURIComponent(username)}`); // Pass username to Game page
+    // Prepare your payload
+    const payload = { UserName: username, score: 0 };
 
-    const collectionRef = collection(db, "Users");
-    const payload = {UserName : username, score: 0};
-    await addDoc(collectionRef, payload);
+    // Add the document to Firebase
+    try {
+      const docRef = await addDoc(collection(db, "Users"), payload);
+      const docId = docRef.id; // This is the document ID
+
+      // Now navigate to the Game component and pass both the payload and the docId as state
+      navigate("/game", { state: { payload, docId } });
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
 
   return (

@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { onSnapshot, collection, addDoc, updateDoc, doc, query, orderBy } from "firebase/firestore";
+import { useLocation } from "react-router-dom";
+import { onSnapshot, collection, addDoc, updateDoc, doc, query, orderBy, arrayUnion  } from "firebase/firestore";
 // import "./Game.css"; // Create this file for styles
 import db from "../firebase";
 
 
 function Game() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  // const [leaderboard, setLeaderboard] = useState([]);
-  // const [challenges, setChallenges] = useState([]);
+   const [idea, setIdea] = useState("");
 
-  // const files = import.meta.glob('/src/assets/Challenges.txt', { as: 'raw' });
-
-  // files['/src/assets/Challenges.txt']().then((text) => {
-  //   setChallenges(text.split('\n'));
-  // });
+  const location = useLocation();
+  // Safely retrieve the payload from location.state
+  const payload = location.state?.payload;
+  const docId = location.state?.docId;
 
   const [challenges, setChallenges] = useState([]); // Fixed typo
 
@@ -32,39 +31,37 @@ function Game() {
     return unsubscribe;
   }, []);
 
-  /*
-  Add button to change text file. *leave for now*
-  Add minus score
-  Change score auto advances to next item ?
-  */
-
-
-  // Function to add a new player score
-  // const addScore = (name, score) => {
-  //   setLeaderboard(prevLeaderboard => {
-  //     // Check if player exists, update score
-  //     const existingPlayer = prevLeaderboard.find(entry => entry.name === name);
-  //     if (existingPlayer) {
-  //       return prevLeaderboard.map(entry =>
-  //         entry.name === name ? { ...entry, score: entry.score + score } : entry
-  //       );
-  //     }
-  //     // Add new player if not foundlea
-  //     return [...prevLeaderboard, { name, score }].sort((a, b) => b.score - a.score);
-  //   });
-  // };
-
   // Function to increment a player's score
   const incrementScore = (user) => {
-    const userRef = doc(db, "Users", user.id);
+    const userRef = doc(db, "Users", docId); // used to be db, "Users", user.id
     updateDoc(userRef, {
-      score: user.score + 100
+      score: payload.score + 100
     })
       .then(() => {
         console.log("User score updated in Firestore!");
+        console.log(payload.score);
+        console.log(docId);
+        payload.score = payload.score + 100;
+        randIndex()
         // No need to update local state manually; onSnapshot will reflect the changes.
       })
-      .catch((error) => console.error("Error updating score: ", error));
+      .catch((error) => console.error("Error updating score: ", error))
+  };
+
+  const decrementScore = (user) => {
+    const userRef = doc(db, "Users", docId); // used to be db, "Users", user.id
+    updateDoc(userRef, {
+      score: payload.score - 100
+    })
+      .then(() => {
+        console.log("User score updated in Firestore!");
+        console.log(payload.score);
+        console.log(docId);
+        payload.score = payload.score - 100;
+        randIndex()
+        // No need to update local state manually; onSnapshot will reflect the changes.
+      })
+      .catch((error) => console.error("Error updating score: ", error))
   };
 
     // // Function to decrement a player's score
@@ -96,6 +93,25 @@ function Game() {
     return unsubscribe;
   }, []);
 
+// Add a new idea to the Firestore array field
+const handlePlayClick = async () => {
+  if (!idea.trim()) {
+    alert("Please enter a valid idea!");
+    return;
+  }
+
+  const docRef = doc(db, "Challenges", "UGprOKmR8AdudS0FbVF6"); // Replace with your document ID
+  try {
+    await updateDoc(docRef, {
+      challenges: arrayUnion(idea), // Add the new idea to the 'challenges' array
+    });
+    console.log("Idea added to Firestore!");
+    setIdea(""); // Clear the input field
+  } catch (error) {
+    console.error("Error adding idea: ", error);
+  }
+};
+
   return (
     <>
     <div className="game-container">
@@ -103,20 +119,30 @@ function Game() {
       <p>The game starts here! 🎮</p>
     </div>
 
-    
+    <h2>Current Item: {challenges[currentIndex]}</h2>
+
     <ul>
   {leaderboard.map((entry) => (
     <li key={entry.id}>
       {entry.UserName}: {entry.score}
-      <button onClick={() => incrementScore(entry)}>+100</button>
+      {/* <button onClick={() => incrementScore(entry)}>+100</button> */}
     </li>
   ))}
 </ul>
-
-      <h2>Current Item: {challenges[currentIndex]}</h2>
-        <button onClick={() => randIndex()}>
+{
+  <h3>You are {payload.UserName}</h3> }
+  <button onClick={() => incrementScore(payload)}>+100</button>
+  <button onClick={() => decrementScore(payload)}>-100</button>
+        {/* <button onClick={() => randIndex()}>
           Next Items
-      </button>
+      </button> */}
+    <input
+        type="text"
+        placeholder="Enter a challenge idea"
+        value={idea}
+        onChange={(e) => setIdea(e.target.value)}
+      />
+      <button onClick={handlePlayClick}>Submit Idea</button>
     </>
   );
 };
