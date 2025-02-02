@@ -49,7 +49,7 @@ const Background = () => {
       // Galaxy parameters
       starCount: 15000,
       galaxyRadius: 10,
-      starSize: 0.014,
+      starSize: 0.01,
       insideColor: "#ff6030",
       outsideColor: "#1b3984",
 
@@ -58,9 +58,9 @@ const Background = () => {
       starColor: "#ffffff", // if you want uniform color
 
       // Animation & parallax
-      rotationSpeed: 0.0002,   // how fast the galaxy rotates
+      rotationSpeed: 0.0001,   // how fast the galaxy rotates
       pulseSpeed: 1.3,      // how fast the pulsing effect is
-      parallaxFactor: 0.5,  // how strongly mouse movement affects the camera
+      parallaxFactor: 0.2,  // how strongly mouse movement affects the camera
 
       // Orbit controls
       autoRotate: true,

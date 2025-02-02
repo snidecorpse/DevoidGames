@@ -5,6 +5,9 @@ import db from "../firebase";
 
 
 function Game() {
+  // Example state...
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [challenges, setChallenges] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   // const [leaderboard, setLeaderboard] = useState([]);
   // const [challenges, setChallenges] = useState([]);
@@ -18,18 +21,17 @@ function Game() {
   const [challenges, setChallenges] = useState([]); // Fixed typo
 
   useEffect(() => {
-    // Subscribe to the Firestore collection
-    const unsubscribe = onSnapshot(collection(db, "Challenges"), (snapshot) => {
-      // Extract the 'challenges' array from each document
-      const challengesData = snapshot.docs
-        .map((doc) => doc.data().challenges || []) // Fallback to empty array if field missing
-        .flat(); // Flatten array of arrays into a single array
-
-      setChallenges(challengesData);
+    // This is just a naive example for demonstration
+    const files = import.meta.glob("/src/assets/Challenges.txt", { as: "raw" });
+    files["/src/assets/Challenges.txt"]().then((text) => {
+      setChallenges(text.split("\n"));
     });
 
-    // Cleanup the subscription on unmount
-    return unsubscribe;
+    // Set an example leaderboard
+    setLeaderboard([
+      { name: "John", score: 0 },
+      { name: "Jane", score: 0 }
+    ]);
   }, []);
 
   /*
@@ -104,7 +106,6 @@ function Game() {
   //   []);
 
   return (
-    <>
     <div className="game-container">
       <h1>Game Page</h1>
       <p>The game starts here! 🎮</p>
@@ -121,11 +122,9 @@ function Game() {
 </ul> 
 
       <h2>Current Item: {challenges[currentIndex]}</h2>
-        <button onClick={() => randIndex()}>
-          Next Items
-      </button>
-    </>
+      <button onClick={randIndex}>Next Items</button>
+    </div>
   );
-};
+}
 
 export default Game;

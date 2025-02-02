@@ -1,26 +1,40 @@
 import React, { useState } from "react";
-import { FaCog } from "react-icons/fa";
 import "./FloatingSettings.css";
 
 const FloatingSettings = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+
+  /**
+   * Toggle the 'Mute' setting, which mutes/unmutes all
+   * audio and video elements on the page.
+   */
+  const handleMuteToggle = () => {
+    setIsMuted((prev) => !prev);
+
+    // Mute or unmute all <audio> and <video> elements
+    const mediaElements = document.querySelectorAll("audio, video");
+    mediaElements.forEach((media) => {
+      media.muted = !media.muted;
+    });
+  };
 
   return (
     <>
-      {/* Floating Button */}
-      <div className="floating-settings" onClick={() => setIsOpen(true)}>
-      </div>
+      {/* Floating Button (spinning gear icon) */}
+      <div
+        className="floating-settings"
+        onClick={() => setIsOpen((prev) => !prev)}
+      />
 
-      {/* Settings Menu (Modal) */}
+      {/* Conditionally render the corner settings menu */}
       {isOpen && (
-        <div className="settings-modal">
-          <div className="settings-content">
-            <h2>Settings</h2>
-            <p>Adjust your preferences here.</p>
-
-            {/* Close Button */}
-            <button className="close-btn" onClick={() => setIsOpen(false)}>Close</button>
-          </div>
+        <div className="settings-menu">
+          <h2>Settings</h2>
+          
+          <button className="mute-btn" onClick={handleMuteToggle}>
+            {isMuted ? "🔇" : "🔊"}
+          </button>
         </div>
       )}
     </>
