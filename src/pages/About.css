@@ -72,7 +72,7 @@ body, html {
   background-size: contain; /* Ensures the image fits inside the circle */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents tiling of the image */
-  top: 20%; /* Position the GitHub button 20% from the top */
+  top: 60%; /* Position the GitHub button 20% from the top */
   left: 15%; /* Position the GitHub button 15% from the left */
 }
 
@@ -81,7 +81,7 @@ body, html {
   background-size: 60%; /* Adjust this value to scale the image down */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents tiling of the image */
-  top: 55%; /* Position the X button 55% from the top */
+  top: 100%; /* Position the X button 55% from the top */
   left: 85%; /* Position the X button 75% from the left */
 }
 
@@ -90,7 +90,7 @@ body, html {
   background-size: 85%; /* Adjust this value to scale the image down */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents tiling of the image */
-  top: 85%; /* Position the Instagram button 85% from the top */
+  top: 200%; /* Position the Instagram button 85% from the top */
   left: 45%; /* Position the Instagram button 45% from the left */
 }
 
@@ -119,17 +119,17 @@ body, html {
   }
 
   .social-button.github {
-    top: 25%; /* Adjust position */
+    top: 60%; /* Adjust position */
     left: 15%; /* Adjust position */
   }
 
   .social-button.x {
-    top: 50%; /* Adjust position */
-    left: 85%; /* Adjust position */
+    top: 90%; /* Adjust position */
+    left: 75%; /* Adjust position */
   }
 
   .social-button.instagram {
-    top: 75%; /* Adjust position */
+    top: 180%; /* Adjust position */
     left: 45%; /* Adjust position */
   }
 }
@@ -150,17 +150,17 @@ body, html {
   }
 
   .social-button.github {
-    top: 20%; /* Adjust position */
+    top:40%; /* Adjust position */
     left: 10%; /* Adjust position */
   }
 
   .social-button.x {
-    top: 45%; /* Adjust position */
+    top: 80%; /* Adjust position */
     left: 75%; /* Adjust position */
   }
 
   .social-button.instagram {
-    top: 70%; /* Adjust position */
+    top: 170%; /* Adjust position */
     left: 45%; /* Adjust position */
   }
 }
