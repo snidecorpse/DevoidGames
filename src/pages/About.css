@@ -5,7 +5,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Arial, sans-serif;
+    font-family: 'Norwester', sans-serif;
   }
   
   .about-container h1 {
@@ -25,6 +25,14 @@ body, html {
     height: 100%; /* Ensure full height */
   }
   
+  .about-container p {
+    max-width: 600px; /* Adjust this value to control how wide the paragraph can be */
+    margin: 0 auto; /* Centers the paragraph */
+    line-height: 1.6; /* Ensures the lines are spaced nicely */
+    word-wrap: break-word; /* Allows long words to break and wrap within the container */
+    text-align: center; /* Centers the paragraph text */
+  }
+
   .social-links {
     position: relative; /* Important for positioning child elements */
     width: 100%;
@@ -94,20 +102,20 @@ body, html {
 
 .social-button.x:hover {
     background-color: #ffffff;
-    animation: glow 3s infinite alternate ease-in-out; /* Apply smooth pulse animation */
+    animation: glow 4s infinite alternate ease-in-out; /* Apply smooth pulse animation */
 }
 
 
 
 
 @keyframes glow {
-  0% {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(68, 64, 64, 0.5); /* Soft initial white glow */
+    0% {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.5); /* Soft initial white glow */
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 1); /* Larger, more intense white glow */
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.5); /* Return to soft initial glow */
+    }
   }
-  50% {
-    box-shadow: 0 0 30px rgba(68, 64, 64, 0.5), 0 0 50px rgba(255, 255, 255, 1); /* Larger, more intense white glow */
-  }
-  100% {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 0px rgba(68, 64, 64, 0.5); /* Return to soft initial glow */
-  }
-}
