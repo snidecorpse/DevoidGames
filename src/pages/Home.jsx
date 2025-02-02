@@ -5,6 +5,7 @@ import FloatingSettings from "../components/FloatingSettings";
 import Background from "../components/background"; // Import Three.js background
 import "./Home.css";
 import db from "../firebase";
+import AboutButton from "../components/aboutButton";
 
 const Home = () => {
   const [username, setUsername] = useState("");
@@ -48,6 +49,7 @@ const Home = () => {
 
       {/* Attach Floating Settings */}
       <FloatingSettings />
+      <AboutButton />
     </div>
   );
 };

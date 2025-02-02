@@ -6,6 +6,8 @@ import db from "../firebase";
 
 
 function Game() {
+    
+    
   const [currentIndex, setCurrentIndex] = useState(0);
    const [idea, setIdea] = useState("");
 

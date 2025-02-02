@@ -33,7 +33,7 @@
   .hero h1 {
     font-size: clamp(2rem, 5vw, 3rem);
     margin-bottom: 10px;
-    animation: wobble 25s infinite ease-in-out; /* Apply the wobble animation */
+    animation: wobble 22s infinite ease-in-out; /* Apply the wobble animation */
     font-weight: bolder;
     font-size: 3.8rem;
     font-family: 'Space and Astronomy', sans-serif;
@@ -76,32 +76,33 @@
     }
     20% {
       transform: translateX(4px) translateY(3px) rotate(1.5deg); 
-      transform: scale(1.05);
+      transform: scale(1.07);
     }
     30% {
       transform: translateX(-4px) translateY(-3px) rotate(-0.5deg); 
+      transform: scale(0.87);
     }
     40% {
-      transform: translateX(5px) translateY(-1px) rotate(2deg); 
-      transform: scale(1);
+      transform: translateX(5px) translateY(-1px) rotate(1.7deg); 
+      
     }
     50% {
       transform: translateX(-2px) translateY(3px) rotate(-1.5deg); /* Slight left and down wobble */
     }
     60% {
       transform: translateX(3px) translateY(2px) rotate(0.5deg);
-      transform: scale(0.95);
+      transform: scale(1.11);
     }
     70% {
       transform: translateX(-3px) translateY(1px) rotate(-2deg); /* Slight left and down wobble */
     }
     80% {
       transform: translateX(2px) translateY(-3px) rotate(1deg); 
-      transform: scale(1.0);
+      transform: scale(1.02);
     }
     90% {
-      transform: translateX(-1px) translateY(2px) rotate(-1deg); /* Slight left and down wobble */
-      transform: scale(0.95);
+      transform: translateX(-1px) translateY(2px) rotate(-1.5deg); /* Slight left and down wobble */
+      transform: scale(0.9);
     }
   }
 

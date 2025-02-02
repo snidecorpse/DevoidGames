@@ -3,21 +3,7 @@ import "./FloatingSettings.css";
 
 const FloatingSettings = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-
-  /**
-   * Toggle the 'Mute' setting, which mutes/unmutes all
-   * audio and video elements on the page.
-   */
-  const handleMuteToggle = () => {
-    setIsMuted((prev) => !prev);
-
-    // Mute or unmute all <audio> and <video> elements
-    const mediaElements = document.querySelectorAll("audio, video");
-    mediaElements.forEach((media) => {
-      media.muted = !media.muted;
-    });
-  };
+  const [customServerId, setCustomServerId] = useState("");
 
   return (
     <>
@@ -31,10 +17,17 @@ const FloatingSettings = () => {
       {isOpen && (
         <div className="settings-menu">
           <h2>Settings</h2>
-          
-          <button className="mute-btn" onClick={handleMuteToggle}>
-            {isMuted ? "🔇" : "🔊"}
-          </button>
+          <div className="settings-field">
+            <label htmlFor="custom-server-id">
+              Custom Server ID (WIP) --     
+            </label>
+            <input
+              type="text"
+              id="custom-server-id"
+              value={customServerId}
+              onChange={(e) => setCustomServerId(e.target.value)}
+            />
+          </div>
         </div>
       )}
     </>
