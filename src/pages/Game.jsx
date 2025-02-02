@@ -13,6 +13,13 @@ function Game() {
     setChallenges(text.split('\n'));
   });
 
+  /*
+  Add button to change text file. *leave for now*
+  Add minus score
+  Change score auto advances to next item ?
+  */
+
+
   // Function to add a new player score
   const addScore = (name, score) => {
     setLeaderboard(prevLeaderboard => {
@@ -37,6 +44,15 @@ function Game() {
     );
   };
 
+    // // Function to decrement a player's score
+    // const decrementScore = (name) => {
+    //   setLeaderboard(prevLeaderboard =>
+    //     prevLeaderboard.map(entry =>
+    //       entry.name === name ? { ...entry, score: entry.score - 100 } : entry
+    //     ).sort((a, b) => b.score - a.score)
+    //   );
+    // };
+  
   const randIndex = () => {
     setCurrentIndex(Math.floor((Math.random() * challenges.length)));
     console.log(currentIndex);
