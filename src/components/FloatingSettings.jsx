@@ -9,7 +9,6 @@ const FloatingSettings = () => {
     <>
       {/* Floating Button */}
       <div className="floating-settings" onClick={() => setIsOpen(true)}>
-        <FaCog />
       </div>
 
       {/* Settings Menu (Modal) */}

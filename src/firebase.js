@@ -1,21 +1,24 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBstRSjJ4RQNZg9GVeHhhOn8C0I2DjI-Jg",
-  authDomain: "diddygame-23fbd.firebaseapp.com",
-  projectId: "diddygame-23fbd",
-  storageBucket: "diddygame-23fbd.firebasestorage.app",
-  messagingSenderId: "27124736115",
-  appId: "1:27124736115:web:0e8e3ad4fe0c51e0a94a06",
-  measurementId: "G-B7D046G95E"
+  apiKey: "AIzaSyD3A7HovMjZ-99GndXZeaxYGOLd61NZEhg",
+  authDomain: "ios-db-b5f59.firebaseapp.com",
+  projectId: "ios-db-b5f59",
+  storageBucket: "ios-db-b5f59.firebasestorage.app",
+  messagingSenderId: "690455504228",
+  appId: "1:690455504228:web:e0e7a94ac4f278a2cdc671",
+  measurementId: "G-PZWCBRP4SG"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+export default getFirestore();
