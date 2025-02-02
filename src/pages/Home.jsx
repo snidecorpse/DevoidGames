@@ -19,7 +19,7 @@ const Home = () => {
     navigate(`/game?user=${encodeURIComponent(username)}`); // Pass username to Game page
 
     const collectionRef = collection(db, "Users");
-    const payload = {UserName : username};
+    const payload = {UserName : username, score: 0};
     await addDoc(collectionRef, payload);
   };
 
