@@ -1,3 +1,6 @@
+@import url('https://fonts.cdnfonts.com/css/norwester'); 
+@import url('https://fonts.cdnfonts.com/css/space-and-astronomy');               
+
 /* Make sure everything is centered */
 .home-container {
     display: flex;
@@ -7,7 +10,7 @@
     height: 100vh;
     width: 100vw;
     text-align: center;
-    background: linear-gradient(to right, #141e30, #243b55);
+    background: linear-gradient(to right, #071838, #370457);
     color: white;
     padding: 20px;
     box-sizing: border-box; /* Prevents layout issues */
@@ -29,8 +32,62 @@
   .hero h1 {
     font-size: clamp(2rem, 5vw, 3rem);
     margin-bottom: 10px;
+    animation: wobble 25s infinite ease-in-out; /* Apply the wobble animation */
+    font-weight: bolder;
+    font-size: 3.8rem;
+    font-family: 'Space and Astronomy', sans-serif;
+    letter-spacing: 0.2em;
+  }
+
+  .hero p {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 15px;
+    font-weight: 120;
+    font-size: 1.5rem;
+    font-family: "Norwester", sans-serif;
+    letter-spacing: 0.2em;
   }
   
+  /* Wobble Animation */
+  @keyframes wobble {
+    0%, 100% {
+      transform: translateX(0) translateY(0) rotate(0); /* Start and end at the original position */
+    }
+    10% {
+      transform: translateX(-3px) translateY(-4px) rotate(-1deg);
+      
+    }
+    20% {
+      transform: translateX(4px) translateY(3px) rotate(1.5deg); 
+      transform: scale(1.05);
+    }
+    30% {
+      transform: translateX(-4px) translateY(-3px) rotate(-0.5deg); 
+    }
+    40% {
+      transform: translateX(5px) translateY(-1px) rotate(2deg); 
+      transform: scale(1);
+    }
+    50% {
+      transform: translateX(-2px) translateY(3px) rotate(-1.5deg); /* Slight left and down wobble */
+    }
+    60% {
+      transform: translateX(3px) translateY(2px) rotate(0.5deg);
+      transform: scale(0.95);
+    }
+    70% {
+      transform: translateX(-3px) translateY(1px) rotate(-2deg); /* Slight left and down wobble */
+    }
+    80% {
+      transform: translateX(2px) translateY(-3px) rotate(1deg); 
+      transform: scale(1.0);
+    }
+    90% {
+      transform: translateX(-1px) translateY(2px) rotate(-1deg); /* Slight left and down wobble */
+      transform: scale(0.95);
+    }
+  }
+
   /* Style input */
   .hero input {
     padding: 10px;

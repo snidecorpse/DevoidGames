@@ -20,8 +20,8 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="hero">
-        <h1>Welcome to GameName here</h1>
-        <p>Your journey starts here. Enter your username:</p>
+        <h1>Devoid Games</h1>
+        <p>Enter your username:</p>
         <input 
           type="text" 
           placeholder="Username" 
