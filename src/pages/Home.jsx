@@ -32,7 +32,7 @@ const Home = () => {
         <p>Enter your username:</p>
         <input 
           type="text" 
-          placeholder="Username" 
+          placeholder="USERNAME" 
           value={username} 
           onChange={(e) => setUsername(e.target.value)} // Save input to state
         />
