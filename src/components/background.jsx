@@ -18,15 +18,13 @@ const Background = () => {
       height: window.innerHeight,
     };
 
-    // Set up a camera that looks straight ahead (z-axis).
-    // We'll shift the galaxy so it's visible at the top-right.
     const camera = new THREE.PerspectiveCamera(
       75,
       sizes.width / sizes.height,
       0.1,
       100
     );
-    camera.position.set(0, 0, 20); // Moved camera far on z-axis
+    camera.position.set(3, 3, 3);
     scene.add(camera);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -41,8 +39,8 @@ const Background = () => {
     controls.enableDamping = true;
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0.4;
-    // We want to pivot our camera around the galaxy's offset
-    controls.target.set(5, 5, 0);
+    // Disable “manual” orbit for a purely parallax-based effect if desired
+    // controls.enableRotate = false;
 
     // ==================================================
     // 3. PARAMETERS & GUI
@@ -57,11 +55,12 @@ const Background = () => {
 
       // Scene colors
       backgroundColor: "#020817",
+      starColor: "#ffffff", // if you want uniform color
 
       // Animation & parallax
-      rotationSpeed: 0.0001,
-      pulseSpeed: 1.3,
-      parallaxFactor: 0.2,
+      rotationSpeed: 0.0001,   // how fast the galaxy rotates
+      pulseSpeed: 1.3,      // how fast the pulsing effect is
+      parallaxFactor: 0.2,  // how strongly mouse movement affects the camera
 
       // Orbit controls
       autoRotate: true,
@@ -75,36 +74,27 @@ const Background = () => {
 
     // Folder: Scene
     const sceneFolder = gui.addFolder("Scene");
-    sceneFolder
-      .addColor(parameters, "backgroundColor")
-      .name("Background")
+    sceneFolder.addColor(parameters, "backgroundColor").name("Background")
       .onChange(() => {
         scene.background.set(parameters.backgroundColor);
       });
 
     // Folder: Galaxy
     const galaxyFolder = gui.addFolder("Galaxy");
-    galaxyFolder
-      .add(parameters, "starCount", 1000, 30000, 1000)
+    galaxyFolder.add(parameters, "starCount", 1000, 30000, 1000)
       .name("Star Count")
       .onFinishChange(generateGalaxy);
-    galaxyFolder
-      .add(parameters, "galaxyRadius", 1, 10, 0.1)
+    galaxyFolder.add(parameters, "galaxyRadius", 1, 10, 0.1)
       .name("Galaxy Radius")
       .onFinishChange(generateGalaxy);
-    galaxyFolder
-      .add(parameters, "starSize", 0.001, 0.1, 0.001)
+    galaxyFolder.add(parameters, "starSize", 0.001, 0.1, 0.001)
       .name("Star Size")
       .onChange((val) => {
         if (galaxyMaterial) galaxyMaterial.size = val;
       });
-    galaxyFolder
-      .addColor(parameters, "insideColor")
-      .name("Inside Color")
+    galaxyFolder.addColor(parameters, "insideColor").name("Inside Color")
       .onFinishChange(generateGalaxy);
-    galaxyFolder
-      .addColor(parameters, "outsideColor")
-      .name("Outside Color")
+    galaxyFolder.addColor(parameters, "outsideColor").name("Outside Color")
       .onFinishChange(generateGalaxy);
 
     // Folder: Animation
@@ -115,14 +105,11 @@ const Background = () => {
 
     // Folder: Orbit Controls
     const orbitFolder = gui.addFolder("Orbit Controls");
-    orbitFolder
-      .add(parameters, "autoRotate")
-      .name("Auto Rotate")
-      .onChange((val) => (controls.autoRotate = val));
-    orbitFolder
-      .add(parameters, "autoRotateSpeed", 0.1, 5, 0.1)
+    orbitFolder.add(parameters, "autoRotate").name("Auto Rotate")
+      .onChange((val) => controls.autoRotate = val);
+    orbitFolder.add(parameters, "autoRotateSpeed", 0.1, 5, 0.1)
       .name("Rotation Speed")
-      .onChange((val) => (controls.autoRotateSpeed = val));
+      .onChange((val) => controls.autoRotateSpeed = val);
 
     // ==================================================
     // 4. CREATE GALAXY FUNCTION
@@ -182,7 +169,7 @@ const Background = () => {
       // Material
       galaxyMaterial = new THREE.PointsMaterial({
         size: parameters.starSize,
-        vertexColors: true, // use per-particle colors
+        vertexColors: true, // use per-particle colors from the geometry
         blending: THREE.AdditiveBlending,
         depthWrite: false,
         transparent: true,
@@ -190,10 +177,6 @@ const Background = () => {
 
       // Points
       galaxyPoints = new THREE.Points(galaxyGeometry, galaxyMaterial);
-
-      // KEY DIFFERENCE: shift the galaxy to top-right in world space
-      galaxyPoints.position.set(5, 5, 0);
-
       scene.add(galaxyPoints);
     }
 
@@ -205,6 +188,8 @@ const Background = () => {
     // ==================================================
     let mouseX = 0;
     let mouseY = 0;
+
+    // Ranges from [-0.5..0.5]
     const onMouseMove = (event) => {
       mouseX = event.clientX / sizes.width - 0.5;
       mouseY = event.clientY / sizes.height - 0.5;
@@ -223,7 +208,7 @@ const Background = () => {
         galaxyPoints.rotation.y = elapsedTime * parameters.rotationSpeed;
       }
 
-      // Star pulsing
+      // Star pulsing (vary the size slightly over time)
       if (galaxyMaterial) {
         const pulse = 1.0 + 0.3 * Math.sin(elapsedTime * parameters.pulseSpeed);
         galaxyMaterial.size = parameters.starSize * pulse;
@@ -231,11 +216,11 @@ const Background = () => {
 
       // Parallax effect: shift camera based on mouse
       const parallaxX = mouseX * parameters.parallaxFactor;
-      const parallaxY = -mouseY * parameters.parallaxFactor;
-      camera.position.x = 0 + parallaxX;
-      camera.position.y = 0 + parallaxY;
+      const parallaxY = -mouseY * parameters.parallaxFactor; // invert Y for natural feel
+      camera.position.x = 3 + parallaxX;
+      camera.position.y = 3 + parallaxY;
 
-      // Update controls
+      // Update controls (auto rotate, damping)
       controls.update();
 
       // Render
@@ -243,7 +228,7 @@ const Background = () => {
       requestAnimationFrame(animate);
     }
     animate();
-
+    gui.domElement.style.display = 'none';
     // ==================================================
     // 7. RESIZE HANDLER
     // ==================================================
@@ -255,27 +240,22 @@ const Background = () => {
       renderer.setSize(sizes.width, sizes.height);
     };
     window.addEventListener("resize", onWindowResize);
-    gui.domElement.style.display = 'none';
 
     // ==================================================
     // CLEANUP ON UNMOUNT
     // ==================================================
-// CLEANUP ON UNMOUNT
-return () => {
-    window.removeEventListener("resize", onWindowResize);
-    window.removeEventListener("mousemove", onMouseMove);
-    gui.destroy();
-    if (galaxyPoints) {
-      galaxyGeometry.dispose();
-      galaxyMaterial.dispose();
-      scene.remove(galaxyPoints);
-    }
-    // Check if mountRef.current exists before trying to remove the renderer
-    if (mountRef.current) {
+    return () => {
+      window.removeEventListener("resize", onWindowResize);
+      window.removeEventListener("mousemove", onMouseMove);
+      gui.destroy();
+      if (galaxyPoints) {
+        galaxyGeometry.dispose();
+        galaxyMaterial.dispose();
+        scene.remove(galaxyPoints);
+      }
       mountRef.current.removeChild(renderer.domElement);
-    }
-    renderer.dispose();
-  };
+      renderer.dispose();
+    };
   }, []);
 
   return <div ref={mountRef} className="webgl"></div>;
