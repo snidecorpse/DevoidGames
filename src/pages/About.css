@@ -26,7 +26,7 @@ body, html {
   }
   
   .about-container p {
-    max-width: 600px; /* Adjust this value to control how wide the paragraph can be */
+    max-width: 90vw; /* Adjust this value to control how wide the paragraph can be */
     margin: 0 auto; /* Centers the paragraph */
     line-height: 1.6; /* Ensures the lines are spaced nicely */
     word-wrap: break-word; /* Allows long words to break and wrap within the container */

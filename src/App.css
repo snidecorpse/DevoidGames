@@ -6,11 +6,11 @@
 }
 
 .content {
-  padding-bottom: 60px; /* Space for mobile navbar */
+  /* padding-bottom: 60px; Space for mobile navbar */
 }
 
 @media (min-width: 768px) {
   .content {
-    margin-right: 60px; /* Space for desktop navbar */
+    /* margin-right: 60px; Space for desktop navbar */
   }
 }
