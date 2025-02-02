@@ -1,5 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/norwester'); 
-@import url('https://fonts.cdnfonts.com/css/space-and-astronomy');               
+@import url('https://fonts.cdnfonts.com/css/space-and-astronomy');  
+@import url('https://fonts.cdnfonts.com/css/chopsic');           
 
 /* Make sure everything is centered */
 .home-container {
@@ -92,11 +93,13 @@
   .hero input {
     font-size: medium;
     padding: 12px;
-    background-color: #ffffff;
     width: 110%;
+    opacity: 70%;
     max-width: 300px;
-    border: none;
-    border-radius: 5px;
+    border: 2px solid white;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    padding: 10px; /* Adds space inside the element */
+    border-radius: 10px; 
     margin-bottom: 20px;
     color: rgb(0, 0, 0);
   }
@@ -105,7 +108,8 @@
   .hero button {
     padding: 10px 20px;
     font-size: 1rem;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Norwester', monospace;
+    font-size: 1rem;
     font-weight: bolder;
     letter-spacing: 0.2em;
     background: #180052;
