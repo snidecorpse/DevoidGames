@@ -82,7 +82,7 @@
 /* Increment button */
 .score-buttons .increment {
   background-color: rgb(0, 219, 0);
-  background-image: url('src/assets/ntick.png');
+  background-image: url('/ntick.png');
   background-size: 80%;
   color: rgba(0, 255, 4, 0);
   background-repeat: no-repeat;
@@ -97,7 +97,7 @@
 .score-buttons .decrement {
   background-color: red;
   color: rgba(255, 255, 255, 0);
-  background-image: url('src/assets/ncross.png');
+  background-image: url('/ncross.png');
   background-size: 80%;
   background-repeat: no-repeat;
   background-position: center;

@@ -14,7 +14,7 @@
   cursor: pointer;
   transition: 0.3s;
   /* Add custom PNG as background */
-  background-image: url('src/assets/settings.PNG'); /* Replace with your PNG file path */
+  background-image: url('/settings.PNG'); /* Replace with your PNG file path */
   background-size: contain; /* Ensure the image covers the button */
   background-position: center; /* Center the image */
   background-repeat: no-repeat;

@@ -68,7 +68,7 @@ body, html {
 
 /* Positioning for each button */
 .social-button.github {
-  background-image: url('src/assets/git.png'); /* Your PNG file */
+  background-image: url('/git.png'); /* Your PNG file */
   background-size: contain; /* Ensures the image fits inside the circle */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents tiling of the image */
@@ -77,7 +77,7 @@ body, html {
 }
 
 .social-button.x {
-  background-image: url('src/assets/x.png'); /* Your PNG file */
+  background-image: url('/x.png'); /* Your PNG file */
   background-size: 60%; /* Adjust this value to scale the image down */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents tiling of the image */
@@ -86,7 +86,7 @@ body, html {
 }
 
 .social-button.instagram {
-  background-image: url('src/assets/insta.png'); /* Your PNG file */
+  background-image: url('/insta.png'); /* Your PNG file */
   background-size: 85%; /* Adjust this value to scale the image down */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents tiling of the image */
