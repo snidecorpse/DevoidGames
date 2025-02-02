@@ -48,6 +48,14 @@
     font-family: "Norwester", sans-serif;
     letter-spacing: 0.2em;
   }
+
+  input[type="text"]::placeholder {
+    font-family: 'Verdana', sans-serif; /* Change font family */
+    text-align: center;
+    font-size: 14px; /* Change font size */
+    font-weight: bold; /* Make it bold */
+    color: #888; /* Change placeholder text color */
+  }
   
   /* Wobble Animation */
   @keyframes wobble {
@@ -97,11 +105,11 @@
     opacity: 70%;
     max-width: 300px;
     border: 2px solid white;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
     padding: 10px; /* Adds space inside the element */
     border-radius: 10px; 
     margin-bottom: 20px;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
   }
   
   /* Style button */
