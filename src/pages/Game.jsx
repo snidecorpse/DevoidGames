@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { onSnapshot, collection, addDoc, updateDoc, doc, query, orderBy, arrayUnion  } from "firebase/firestore";
-// import "./Game.css"; // Create this file for styles
+import "./Game.css"; // Create this file for styles
 import db from "../firebase";
 
 
@@ -114,39 +114,45 @@ const handlePlayClick = async () => {
   }
 };
 
-  return (
-    <>
+return (
+  <div className="game-wrapper"> {/* Wrapper to manage layout */}
     <div className="game-container">
-      <h1>Game Page</h1>
-      <p>The game starts here! 🎮</p>
+      <h1>Taurus' Trials</h1>
     </div>
 
-    <h2>Current Item: {challenges[currentIndex]}</h2>
+    <h3>Welcome, {payload.UserName}</h3> 
 
-    <ul>
-  {leaderboard.map((entry) => (
-    <li key={entry.id}>
-      {entry.UserName}: {entry.score}
-      {/* <button onClick={() => incrementScore(entry)}>+100</button> */}
-    </li>
-  ))}
-</ul>
-{
-  <h3>You are {payload.UserName}</h3> }
-  <button onClick={() => incrementScore(payload)}>+100</button>
-  <button onClick={() => decrementScore(payload)}>-100</button>
-        {/* <button onClick={() => randIndex()}>
-          Next Items
-      </button> */}
-    <input
+    <h2>Task: {challenges[currentIndex]}</h2>
+
+    <div className="score-buttons">
+      <button className="decrement" onClick={() => decrementScore(payload)}>-100</button>
+      <button className="increment" onClick={() => incrementScore(payload)}>+100</button>
+    </div>
+
+    <div className="input-container">
+      <input
         type="text"
         placeholder="Enter a challenge idea"
         value={idea}
         onChange={(e) => setIdea(e.target.value)}
       />
       <button onClick={handlePlayClick}>Submit Idea</button>
-    </>
-  );
+    </div>
+
+    {/* Leaderboard moved to bottom */}
+    <div className="leaderboard-container">
+      <h2>Leaderboard</h2>
+      <ul>
+        {leaderboard.map((entry) => (
+          <li key={entry.id}>
+            {entry.UserName}: {entry.score}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+);
+
 };
 
 export default Game;

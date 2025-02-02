@@ -1,86 +1,196 @@
-/* Main container */
+/* Reset margins and padding for headers */
+.game-container h1,
+.game-wrapper h3,
+.game-wrapper h2 {
+  margin: 0; /* Remove the default margin after headers */
+  padding: 5px; /* Remove any default padding */
+}
+
+/* Center everything */
+.game-wrapper {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #242424; /* Dark mode background */
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Game Container - Centers content */
 .game-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh; /* Full viewport height */
-    width: 100vw; /* Full viewport width */
-    text-align: center;
-    background-color: #2c2c2c;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    padding: 20px; /* Add padding for inner spacing */
-    margin: 0; /* Remove margin to avoid unnecessary spacing */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  width: 90vw;
+  max-width: 90vw;
+}
+
+.game-container h1 {
+  font-family: "Space and Astronomy", sans-serif;
+  font-size: 4rem;
+}
+
+.game-wrapper h3 {
+  font-family: "Space and Astronomy", sans-serif;
+  font-size: 1.8rem;
+}
+
+.game-wrapper h2 {
+  font-family: "Norwester", sans-serif;
+  font-size: 3rem;
+}
+
+/* Score buttons container */
+.score-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5vw;
+  margin: 10px 0;
+  flex-wrap: nowrap; /* Prevent buttons from wrapping onto new lines */
+  width: 100%;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+/* Score buttons */
+.score-buttons button {
+  width: 35vw; /* Set a fixed width */
+  max-width: 150px;
+  height: 35vw; /* Set a fixed height, same as width */
+  max-height: 150px;
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  border-radius: 10%; /* Rounded corners */
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  display: flex; /* Flexbox for centering text */
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s, transform 0.3s;
+  background-color: #ffffff; /* Fallback background color */
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+/* Increment button */
+.score-buttons .increment {
+  background-color: rgb(0, 219, 0);
+  background-image: url('src/assets/ntick.png');
+  background-size: 80%;
+  color: rgba(0, 255, 4, 0);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.score-buttons .increment:hover {
+  background-color: darkgreen;
+}
+
+/* Decrement button */
+.score-buttons .decrement {
+  background-color: red;
+  color: rgba(255, 255, 255, 0);
+  background-image: url('src/assets/ncross.png');
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.score-buttons .decrement:hover {
+  background-color: darkred;
+}
+
+/* Input and submit button */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 15px;
+}
+
+.input-container input {
+  width: 350px;
+  max-width: 90vw;
+  padding: 12px;
+  font-size: 1rem;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+}
+
+.input-container button {
+  padding: 12px 12px;
+  margin: 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #5a0092;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 150px;
+}
+
+.input-container button:hover {
+  background-color: #370457;
+}
+
+/* Leaderboard container - Scrollable and at the bottom */
+.leaderboard-container {
+  width: 350px;
+  max-width: 90vw;
+  height: 400px; /* Adjust height as needed */
+  overflow-y: auto; /* Makes it scrollable */
+  border: 2px solid white;
+  padding: 10px;
+  margin-top: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+}
+
+/* Leaderboard List */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-family:  'Courier New', monospace;
+  font-weight: bold;
+}
+
+li {
+  font-size: 1.2rem;
+  margin: 5px 0;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .score-buttons {
+    gap: 20px; /* Adjust gap for smaller screens */
   }
-  
-  /* Nested div inside .game-container */
-  .game-container div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%; /* Full width */
-    color: #ffcc00;
-    padding: 10px; /* Add padding for inner spacing */
+
+  .score-buttons button {
+    width: 30vw; /* Adjust button width */
+    height: 30vw; /* Adjust button height */
   }
-  
-  /* Headings and paragraphs */
-  .game-container h1 {
-    color: #ffffff;
-    margin: 10px 0; /* Add margin for spacing */
+
+  .game-container {
+    width: 95%;
   }
-  
-  .game-container p {
-    color: #fe2f00;
-    margin: 10px 0; /* Add margin for spacing */
+
+  .leaderboard-container {
+    height: 150px; /* Slightly smaller on mobile */
   }
-  
-  .game-container h2 {
-    color: #5c33ff;
-    margin: 10px 0; /* Add margin for spacing */
-  }
-  
-  /* Unordered list */
-  ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%; /* Full width */
-    list-style: none;
-    padding: 10px;
-    background-color: #1e1e1e;
-    border-radius: 8px;
-    margin: 10px 0; /* Add margin for spacing */
-  }
-  
-  /* List items */
-  li {
-    background: #3a3a3a;
-    margin: 10px 0; /* Add margin for spacing */
-    padding: 10px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #ffffff;
-    width: 90%; /* Slightly less than full width for better aesthetics */
-  }
-  
-  /* Buttons */
-  button {
-    background: #ffcc00;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s;
-    margin: 10px 0; /* Add margin for spacing */
-  }
-  
-  button:hover {
-    background: #e6b800;
-  }
+}
