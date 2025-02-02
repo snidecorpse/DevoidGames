@@ -10,7 +10,7 @@
     height: 100vh;
     width: 100vw;
     text-align: center;
-    background: linear-gradient(to right, #071838, #370457);
+    /*background: linear-gradient(to right, #071838, #370457);*/
     color: white;
     padding: 20px;
     box-sizing: border-box; /* Prevents layout issues */
