@@ -1,7 +1,19 @@
+import "./About.css";
 import React from "react";
 
 const About = () => {
-  return <h1>About Page</h1>;
+  return (
+    <div className="about-container">
+      <h1>About Us</h1>
+      <p>Welcome to our amazing app! We strive to create the best experience for our users.</p>
+      
+      <div className="social-links">
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-button github"> </a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-button facebook">Facebook</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-button instagram">Instagram</a>
+      </div>
+    </div>
+  );
 };
 
 export default About;

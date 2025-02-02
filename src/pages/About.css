@@ -1,0 +1,82 @@
+.about-container body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .about-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Centers the social media buttons horizontally */
+    gap: 120px; /* Adds space between buttons */
+  }
+  
+  .social-button {
+    width: 100px; /* Set a fixed width */
+    height: 100px; /* Set a fixed height, same as width */
+    padding: 0; /* Remove padding, we're setting width and height */
+    margin: 0; /* Removed margin for more controlled spacing */
+    border-radius: 50%; /* Makes the button circular */
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: flex; /* Flexbox for centering text */
+    align-items: center;
+    justify-content: center; /* Center the text inside the circle */
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .social-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .github {
+    position: fixed;
+    width: 100px; /* Set the width of the circular button */
+    height: 100px; /* Set the height to match the width */
+    border-radius: 50%; /* Makes the button circular */
+    background-image: url('src/assets/git.png'); /* Your PNG file */
+    background-size: contain; /* Ensures the image fits inside the circle */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling of the image */
+    background-color: #ffffff; /* Fallback background color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s; /* Smooth transform for hover effects */
+  }  
+  
+  .github {
+    background-color: #ffffff;
+  }
+  
+  .github:hover {
+    background-color: #ffffff;
+  }
+  
+  .facebook {
+    background-color: #1877F2;
+  }
+  
+  .facebook:hover {
+    background-color: #165EBC;
+  }
+  
+  .instagram {
+    background-color: #C13584;
+  }
+  
+  .instagram:hover {
+    background-color: #9B2D6F;
+  }
+  
