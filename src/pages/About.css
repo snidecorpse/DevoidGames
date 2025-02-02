@@ -1,121 +1,166 @@
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Norwester', sans-serif;
-  }
-  
-  .about-container h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: 10px;
-    font-weight: bolder;
-    font-size: 3.8rem;
-    font-family: 'Space and Astronomy', sans-serif;
-    letter-spacing: 0.2em;
-  }
-  
-  .about-container {
-    text-align: center;
-    padding: 20px;
-    position: relative; /* Set the container to relative so we can position the buttons inside it */
-    width: 100%; /* Ensure full width */
-    height: 100%; /* Ensure full height */
-  }
-  
-  .about-container p {
-    max-width: 600px; /* Adjust this value to control how wide the paragraph can be */
-    margin: 0 auto; /* Centers the paragraph */
-    line-height: 1.6; /* Ensures the lines are spaced nicely */
-    word-wrap: break-word; /* Allows long words to break and wrap within the container */
-    text-align: center; /* Centers the paragraph text */
-  }
-
-  .social-links {
-    position: relative; /* Important for positioning child elements */
-    width: 100%;
-    height: 100%;
-  }
-  
-  .social-button {
-    width: 100px; /* Set a fixed width */
-    height: 100px; /* Set a fixed height, same as width */
-    padding: 0; /* Remove padding, we're setting width and height */
-    margin: 0; /* Remove margin */
-    border-radius: 50%; /* Makes the button circular */
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    display: flex; /* Flexbox for centering text */
-    align-items: center;
-    justify-content: center; /* Center the text inside the circle */
-    transition: background-color 0.3s, transform 0.3s;
-    position: absolute; /* Position the buttons absolutely within the container */
-  }
-  
-  .social-button:hover {
-    transform: scale(1.1);
-  }
-  
-  .social-button.github {
-    background-image: url('src/assets/git.png'); /* Your PNG file */
-    background-size: contain; /* Ensures the image fits inside the circle */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents tiling of the image */
-    background-color: #ffffff; /* Fallback background color */
-    top: 25%; /* Position the GitHub button 30% from the top */
-    left: 15%; /* Position the GitHub button 10% from the left */
-  }
-  
-  .social-button.x {
-    background-image: url('src/assets/x.png'); /* Your PNG file */
-    background-size: 60%; /* Adjust this value to scale the image down */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents tiling of the image */
-    background-color: #ffffff; /* Fallback background color */
-    top: 55%; /* Position the X button 50% from the top */
-    left: 80%; /* Position the X button 70% from the left */
-  }
-  
-  .social-button.instagram {
-    background-image: url('src/assets/insta.png'); /* Your PNG file */
-    background-size: 85%; /* Adjust this value to scale the image down */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents tiling of the image */
-    background-color: #ffffff; /* Fallback background color */
-    top: 90%; /* Position the X button 50% from the top */
-    left: 50%; /* Position the X button 70% from the left */
-  }
-  
-  
-  .social-button.instagram:hover {
-    background-color: #ffffff;
-    animation: glow 3s infinite alternate ease-in-out; /* Apply smooth pulse animation */
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Norwester', sans-serif;
 }
 
-.social-button.github:hover {
-    background-color: #ffffff;
-    animation: glow 3s infinite alternate ease-in-out; /* Apply smooth pulse animation */
+.about-container {
+  text-align: center;
+  padding: 20px;
+  position: relative; /* Set the container to relative so we can position the buttons inside it */
+  width: 100%; /* Ensure full width */
+  height: 100%; /* Ensure full height */
+  box-sizing: border-box; /* Includes padding and borders in element's total width and height */
 }
 
-.social-button.x:hover {
-    background-color: #ffffff;
-    animation: glow 4s infinite alternate ease-in-out; /* Apply smooth pulse animation */
+.about-container h1 {
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  margin-bottom: 10px;
+  font-weight: bolder;
+  font-family: 'Space and Astronomy', sans-serif;
+  letter-spacing: 0.2em;
 }
 
+.about-container p {
+  max-width: 90vw; /* 90% of the viewport width, so it adjusts based on screen size */
+  width: 100%; /* Ensures the paragraph takes up the full width available */
+  margin: 0 auto; /* Centers the paragraph */
+  line-height: 1.6; /* Ensures the lines are spaced nicely */
+  word-wrap: break-word; /* Allows long words to break and wrap within the container */
+  text-align: center; /* Centers the paragraph text */
+  padding: 10px; /* Adds some padding to avoid text sticking to the edges */
+}
 
+/* Social links container */
+.social-links {
+  position: relative; /* Important for positioning child elements */
+  width: 100%;
+  height: 100%;
+}
 
+/* Social button base style */
+.social-button {
+  width: 100px; /* Set a fixed width */
+  height: 100px; /* Set a fixed height, same as width */
+  padding: 0; /* Remove padding, we're setting width and height */
+  margin: 0; /* Remove margin */
+  border-radius: 50%; /* Makes the button circular */
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  display: flex; /* Flexbox for centering text */
+  align-items: center;
+  justify-content: center; /* Center the text inside the circle */
+  transition: background-color 0.3s, transform 0.3s;
+  position: absolute; /* Position the buttons absolutely within the container */
+  background-color: #ffffff; /* Fallback background color */
+}
 
+/* Social button hover effect */
+.social-button:hover {
+  transform: scale(1.1);
+  animation: glow 3s infinite alternate ease-in-out; /* Apply smooth pulse animation */
+}
+
+/* Positioning for each button */
+.social-button.github {
+  background-image: url('src/assets/git.png'); /* Your PNG file */
+  background-size: contain; /* Ensures the image fits inside the circle */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling of the image */
+  top: 20%; /* Position the GitHub button 20% from the top */
+  left: 15%; /* Position the GitHub button 15% from the left */
+}
+
+.social-button.x {
+  background-image: url('src/assets/x.png'); /* Your PNG file */
+  background-size: 60%; /* Adjust this value to scale the image down */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling of the image */
+  top: 55%; /* Position the X button 55% from the top */
+  left: 85%; /* Position the X button 75% from the left */
+}
+
+.social-button.instagram {
+  background-image: url('src/assets/insta.png'); /* Your PNG file */
+  background-size: 85%; /* Adjust this value to scale the image down */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling of the image */
+  top: 85%; /* Position the Instagram button 85% from the top */
+  left: 45%; /* Position the Instagram button 45% from the left */
+}
+
+/* Glow animation for hover */
 @keyframes glow {
-    0% {
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.5); /* Soft initial white glow */
-    }
-    50% {
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 1); /* Larger, more intense white glow */
-    }
-    100% {
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.5); /* Return to soft initial glow */
-    }
+  0% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.5); /* Soft initial white glow */
   }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 1); /* Larger, more intense white glow */
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.5); /* Return to soft initial glow */
+  }
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 25px; /* Reduce padding on smaller screens */
+  }
+
+  .social-button {
+    width: 80px; /* Adjust button size for smaller screens */
+    height: 80px; /* Adjust button size for smaller screens */
+  }
+
+  .social-button.github {
+    top: 25%; /* Adjust position */
+    left: 15%; /* Adjust position */
+  }
+
+  .social-button.x {
+    top: 50%; /* Adjust position */
+    left: 85%; /* Adjust position */
+  }
+
+  .social-button.instagram {
+    top: 75%; /* Adjust position */
+    left: 45%; /* Adjust position */
+  }
+}
+
+@media (max-width: 480px) {
+  .about-container h1 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem); /* Adjust font size for very small screens */
+  }
+
+  .about-container p {
+    font-size: 1rem; /* Adjust paragraph font size for smaller screens */
+    padding: 15px; /* Reduce padding for smaller screens */
+  }
+
+  .social-button {
+    width: 60px; /* Adjust button size further for very small screens */
+    height: 60px; /* Adjust button size further for very small screens */
+  }
+
+  .social-button.github {
+    top: 20%; /* Adjust position */
+    left: 10%; /* Adjust position */
+  }
+
+  .social-button.x {
+    top: 45%; /* Adjust position */
+    left: 75%; /* Adjust position */
+  }
+
+  .social-button.instagram {
+    top: 70%; /* Adjust position */
+    left: 45%; /* Adjust position */
+  }
+}
