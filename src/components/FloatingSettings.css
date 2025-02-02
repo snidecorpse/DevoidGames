@@ -20,6 +20,7 @@
   
   .floating-settings:hover {
     background: #ff4500;
+    transform: scale(10.1);
   }
   
   /* Settings Modal */
