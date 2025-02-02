@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Game";
 import Settings from "./pages/Settings";
 import About from "./pages/About";
 import "./App.css";
+import Game from "./pages/Game";
 
 const App = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -23,7 +24,7 @@ const App = () => {
       <div className="content">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/Game" element={<Game />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/about" element={<About />} />
         </Routes>
