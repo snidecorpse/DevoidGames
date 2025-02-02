@@ -255,6 +255,7 @@ const Background = () => {
       renderer.setSize(sizes.width, sizes.height);
     };
     window.addEventListener("resize", onWindowResize);
+    gui.domElement.style.display = 'none';
 
     // ==================================================
     // CLEANUP ON UNMOUNT
