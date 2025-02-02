@@ -1,91 +1,75 @@
 /* Floating Settings Button */
-/* Move Floating Settings to Top Left */
 .floating-settings {
   position: fixed;
   top: 20px;
   left: 20px;
   width: 60px;
   height: 60px;
-  background: transparent; /* Remove solid background */
+  background: transparent;
   border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: 0.3s;
+  
   /* Add custom PNG as background */
-  background-image: url('src/assets/settings.PNG'); /* Replace with your PNG file path */
-  background-size: contain; /* Ensure the image covers the button */
-  background-position: center; /* Center the image */
+  background-image: url('src/assets/settings.PNG');
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
+
   /* Add spinning animation */
-  animation: spin 15s linear infinite; /* Slow spin (10 seconds per rotation) */
+  animation: spin 15s linear infinite;
   filter: drop-shadow(0 0 1.7em #9acefff8);
 }
 
-/* Hover effect */
+/* Hover effect for the button */
 .floating-settings:hover {
-  transform: scale(10); /* Slightly enlarge on hover */
+  transform: scale(1.2); /* Slightly enlarge on hover */
 }
 
 /* Spinning animation */
 @keyframes spin {
   from {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   to {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
-/* Settings Modal */
-.settings-modal {
+/* The corner settings menu container */
+.settings-menu {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Modal Content */
-.settings-content {
-  background: rgba(212, 212, 212, 0.941);
-  padding: 10px;
-  border-radius: 12px;
-  width: 300px;
-  text-align: center;
+  top: 90px;  /* just below the floating icon */
+  left: 20px;
+  width: 220px; /* adjust width as you like */
+  background: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-family: 'Verdana', sans-serif;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
-.settings-content p {
-  font-family: 'Verdana', sans-serif; /* Apply Verdana font */
-  font-size: 0.9rem;
-  color: #000000; /* Optional: Add a spooky red color */
+/* Simple header style inside the menu */
+.settings-menu h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #000000;
 }
 
-.settings-content h2 {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; /* Apply Verdana font */
-  font-size: 2rem;
-  color: #000000; /* Optional: Add a spooky red color */
-}
-
-/* Close Button */
-.close-btn {
-  margin-top: 10px;
-  padding: 10px 20px;
+/* Mute toggle button */
+.mute-btn {
+  background: none;
   border: none;
-  background: #160146;
-  color: white;
-  border-radius: 7px;
   cursor: pointer;
-  font-family: 'Courier New', Courier, monospace;
-  font-weight: bolder;
+  font-size: 2rem; /* make the emoji quite large */
+  margin-top: 10px;
+  transition: transform 0.2s;
 }
 
-.close-btn:hover {
-  background: #4b006d;
+.mute-btn:hover {
+  transform: scale(1.3);
 }
