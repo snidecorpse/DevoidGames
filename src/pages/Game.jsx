@@ -1,32 +1,51 @@
 import React, { useState, useEffect } from "react";
+import { onSnapshot, collection, addDoc } from "firebase/firestore";
 import "./Game.css"; // Create this file for styles
+import db from "../firebase";
 
 
 function Game() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [leaderboard, setLeaderboard] = useState([]);
-  const [challenges, setChallenges] = useState([]);
+  // const [challenges, setChallenges] = useState([]);
 
-  const files = import.meta.glob('/src/assets/Challenges.txt', { as: 'raw' });
+  // const files = import.meta.glob('/src/assets/Challenges.txt', { as: 'raw' });
 
-  files['/src/assets/Challenges.txt']().then((text) => {
-    setChallenges(text.split('\n'));
-  });
+  // files['/src/assets/Challenges.txt']().then((text) => {
+  //   setChallenges(text.split('\n'));
+  // });
+
+  const [challenges, setChallenges] = useState([]); // Fixed typo
+
+  useEffect(() => {
+    // Subscribe to the Firestore collection
+    const unsubscribe = onSnapshot(collection(db, "Challenges"), (snapshot) => {
+      // Extract the 'challenges' array from each document
+      const challengesData = snapshot.docs
+        .map((doc) => doc.data().challenges || []) // Fallback to empty array if field missing
+        .flat(); // Flatten array of arrays into a single array
+
+      setChallenges(challengesData);
+    });
+
+    // Cleanup the subscription on unmount
+    return unsubscribe;
+  }, []);
 
   // Function to add a new player score
-  const addScore = (name, score) => {
-    setLeaderboard(prevLeaderboard => {
-      // Check if player exists, update score
-      const existingPlayer = prevLeaderboard.find(entry => entry.name === name);
-      if (existingPlayer) {
-        return prevLeaderboard.map(entry =>
-          entry.name === name ? { ...entry, score: entry.score + score } : entry
-        );
-      }
-      // Add new player if not found
-      return [...prevLeaderboard, { name, score }].sort((a, b) => b.score - a.score);
-    });
-  };
+  // const addScore = (name, score) => {
+  //   setLeaderboard(prevLeaderboard => {
+  //     // Check if player exists, update score
+  //     const existingPlayer = prevLeaderboard.find(entry => entry.name === name);
+  //     if (existingPlayer) {
+  //       return prevLeaderboard.map(entry =>
+  //         entry.name === name ? { ...entry, score: entry.score + score } : entry
+  //       );
+  //     }
+  //     // Add new player if not found
+  //     return [...prevLeaderboard, { name, score }].sort((a, b) => b.score - a.score);
+  //   });
+  // };
 
   // Function to increment a player's score
   const incrementScore = (name) => {
