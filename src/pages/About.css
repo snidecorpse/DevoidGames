@@ -8,6 +8,15 @@ body, html {
     font-family: Arial, sans-serif;
   }
   
+  .about-container h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 10px;
+    font-weight: bolder;
+    font-size: 3.8rem;
+    font-family: 'Space and Astronomy', sans-serif;
+    letter-spacing: 0.2em;
+  }
+  
   .about-container {
     text-align: center;
     padding: 20px;
