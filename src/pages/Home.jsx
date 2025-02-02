@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { onSnapshot, collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import FloatingSettings from "../components/FloatingSettings";
-import Background from "../components/background"; // Import Three.js background
+import Background from "../components/constellation"; // Import Three.js background
 import "./Home.css";
 import db from "../firebase";
 import AboutButton from "../components/aboutButton";

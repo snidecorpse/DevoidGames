@@ -1,9 +1,12 @@
 import "./About.css";
 import React from "react";
+import Constellation from "../components/background";
 
 const About = () => {
   return (
     <div className="about-container">
+      
+      <Constellation />
       <h1>About Us</h1>
       <p>Hi! We are Aries Studios, a team of passionate developers who love making cool, interactive websites and video games. Enjoy your trip through our computer-generated stars!</p>
       
@@ -13,6 +16,7 @@ const About = () => {
         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-button instagram"> </a>
       </div>
     </div>
+    
   );
 };
 

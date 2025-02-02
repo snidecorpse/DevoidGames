@@ -1,27 +1,9 @@
-/* Container styles */
-.constellation {
-    position: relative;
-    width: 100%;
-    height: 100vh; /* Full viewport height */
-    overflow: hidden;
-    background-color: #000; /* black background to highlight the white particles */
-  }
-  
-  /* Title styles */
-  .constellation-title {
-    position: absolute;
-    top: 20px;
-    width: 100%;
-    text-align: center;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    font-size: 2rem;
-    z-index: 10; /* make sure the title is on top of the canvas */
-  }
-  
-  /* The container that will hold the Three.js canvas */
-  .constellation-canvas {
+.constellation-webgl {
     width: 100%;
     height: 100%;
+    position: fixed; /* Or absolute, if you prefer */
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
   }
-  
