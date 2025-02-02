@@ -49,7 +49,7 @@ const Background = () => {
       // Galaxy parameters
       starCount: 15000,
       galaxyRadius: 10,
-      starSize: 0.014,
+      starSize: 0.01,
       insideColor: "#ff6030",
       outsideColor: "#1b3984",
 

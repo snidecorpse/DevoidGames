@@ -1,80 +1,62 @@
 import React, { useState, useEffect } from "react";
-import "./Game.css"; // Create this file for styles
-
 
 function Game() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // Example state...
   const [leaderboard, setLeaderboard] = useState([]);
   const [challenges, setChallenges] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const files = import.meta.glob('/src/assets/Challenges.txt', { as: 'raw' });
+  // 1) Reload logic
+  useEffect(() => {
+    // Get how many times we've reloaded so far
+    const reloadCount = parseInt(sessionStorage.getItem("reloadCount")) || 0;
 
-  files['/src/assets/Challenges.txt']().then((text) => {
-    setChallenges(text.split('\n'));
-  });
+    if (reloadCount < 2) {
+      // Increment count
+      sessionStorage.setItem("reloadCount", reloadCount + 1);
+      // Reload the page
+      window.location.reload();
+    } else {
+      // We have reloaded 2 times already, so reset or remove the counter
+      sessionStorage.removeItem("reloadCount");
+    }
+  }, []);
 
-  /*
-  Add button to change text file. *leave for now*
-  Add minus score
-  Change score auto advances to next item ?
-  */
-
-
-  // Function to add a new player score
-  const addScore = (name, score) => {
-    setLeaderboard(prevLeaderboard => {
-      // Check if player exists, update score
-      const existingPlayer = prevLeaderboard.find(entry => entry.name === name);
-      if (existingPlayer) {
-        return prevLeaderboard.map(entry =>
-          entry.name === name ? { ...entry, score: entry.score + score } : entry
-        );
-      }
-      // Add new player if not found
-      return [...prevLeaderboard, { name, score }].sort((a, b) => b.score - a.score);
+  // 2) Load your text file or do normal logic
+  useEffect(() => {
+    // This is just a naive example for demonstration
+    const files = import.meta.glob("/src/assets/Challenges.txt", { as: "raw" });
+    files["/src/assets/Challenges.txt"]().then((text) => {
+      setChallenges(text.split("\n"));
     });
+
+    // Set an example leaderboard
+    setLeaderboard([
+      { name: "John", score: 0 },
+      { name: "Jane", score: 0 }
+    ]);
+  }, []);
+
+  const randIndex = () => {
+    setCurrentIndex(Math.floor(Math.random() * challenges.length));
   };
 
-  // Function to increment a player's score
   const incrementScore = (name) => {
-    setLeaderboard(prevLeaderboard =>
-      prevLeaderboard.map(entry =>
-        entry.name === name ? { ...entry, score: entry.score + 100 } : entry
-      ).sort((a, b) => b.score - a.score)
+    setLeaderboard((prev) =>
+      prev
+        .map((entry) =>
+          entry.name === name ? { ...entry, score: entry.score + 100 } : entry
+        )
+        .sort((a, b) => b.score - a.score)
     );
   };
 
-    // // Function to decrement a player's score
-    // const decrementScore = (name) => {
-    //   setLeaderboard(prevLeaderboard =>
-    //     prevLeaderboard.map(entry =>
-    //       entry.name === name ? { ...entry, score: entry.score - 100 } : entry
-    //     ).sort((a, b) => b.score - a.score)
-    //   );
-    // };
-  
-  const randIndex = () => {
-    setCurrentIndex(Math.floor((Math.random() * challenges.length)));
-    console.log(currentIndex);
-  }
-
-
-  useEffect(() => {
-    setLeaderboard([
-      { name: 'John', score: 0 },
-      { name: 'Jane', score: 0 }
-    ].sort((a, b) => b.score - a.score));
-  }, []);
-
   return (
-    <>
     <div className="game-container">
       <h1>Game Page</h1>
       <p>The game starts here! 🎮</p>
-    </div>
 
-    
-    <ul>
+      <ul>
         {leaderboard.map((entry, index) => (
           <li key={index}>
             {entry.name}: {entry.score}
@@ -84,11 +66,9 @@ function Game() {
       </ul>
 
       <h2>Current Item: {challenges[currentIndex]}</h2>
-        <button onClick={() => randIndex()}>
-          Next Items
-      </button>
-    </>
+      <button onClick={randIndex}>Next Items</button>
+    </div>
   );
-};
+}
 
 export default Game;
