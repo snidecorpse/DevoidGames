@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { onSnapshot, collection, addDoc } from "firebase/firestore";
+import { onSnapshot, collection, addDoc, updateDoc, doc, increment, query, orderBy } from "firebase/firestore";
 import "./Game.css"; // Create this file for styles
 import db from "../firebase";
 
 
 function Game() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [leaderboard, setLeaderboard] = useState([]);
+  // const [leaderboard, setLeaderboard] = useState([]);
   // const [challenges, setChallenges] = useState([]);
 
   // const files = import.meta.glob('/src/assets/Challenges.txt', { as: 'raw' });
@@ -49,18 +49,22 @@ function Game() {
   //         entry.name === name ? { ...entry, score: entry.score + score } : entry
   //       );
   //     }
-  //     // Add new player if not found
+  //     // Add new player if not foundlea
   //     return [...prevLeaderboard, { name, score }].sort((a, b) => b.score - a.score);
   //   });
   // };
 
   // Function to increment a player's score
-  const incrementScore = (name) => {
-    setLeaderboard(prevLeaderboard =>
-      prevLeaderboard.map(entry =>
-        entry.name === name ? { ...entry, score: entry.score + 100 } : entry
-      ).sort((a, b) => b.score - a.score)
-    );
+  const incrementScore = (user) => {
+    const userRef = doc(db, "Users", user.id);
+    updateDoc(userRef, {
+      score: user.score + 100
+    })
+      .then(() => {
+        console.log("User score updated in Firestore!");
+        // No need to update local state manually; onSnapshot will reflect the changes.
+      })
+      .catch((error) => console.error("Error updating score: ", error));
   };
 
     // // Function to decrement a player's score
@@ -78,12 +82,26 @@ function Game() {
   }
 
 
+  const [leaderboard, setLeaderboard] = useState([]);
+
+
   useEffect(() => {
-    setLeaderboard([
-      { name: 'John', score: 0 },
-      { name: 'Jane', score: 0 }
-    ].sort((a, b) => b.score - a.score));
+    const usersQuery = query(
+      collection(db, "Users"),
+      orderBy("score", "desc")
+    );
+    const unsubscribe = onSnapshot(usersQuery, (snapshot) => {
+      const users = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setLeaderboard(users);
+    });
+    return unsubscribe;
   }, []);
+
+  // useEffect(() => 
+  //   onSnapshot(collection(db, "Users"), (snapshot) =>
+  //     setLeaderboard(snapshot.docs.map((doc) => doc.data()))
+  //   ), 
+  //   []);
 
   return (
     <>
@@ -94,13 +112,13 @@ function Game() {
 
     
     <ul>
-        {leaderboard.map((entry, index) => (
-          <li key={index}>
-            {entry.name}: {entry.score}
-            <button onClick={() => incrementScore(entry.name)}>+100</button>
-          </li>
-        ))}
-      </ul>
+  {leaderboard.map((entry) => (
+    <li key={entry.id}>
+      {entry.UserName}: {entry.score}
+      <button onClick={() => incrementScore(entry)}>+100</button>
+    </li>
+  ))}
+</ul> 
 
       <h2>Current Item: {challenges[currentIndex]}</h2>
         <button onClick={() => randIndex()}>
