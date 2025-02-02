@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { onSnapshot, collection, addDoc, updateDoc, doc } from "firebase/firestore";
-import "./Game.css"; // Create this file for styles
+// import "./Game.css"; // Create this file for styles
 import db from "../firebase";
 
 
