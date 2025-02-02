@@ -33,25 +33,26 @@
 
 .game-container h1 {
   font-family: "Space and Astronomy", sans-serif;
-  font-size: 4rem;
+  font-size: 3rem;
+  margin-top: 30px;
 }
 
 .game-wrapper h3 {
   font-family: "Space and Astronomy", sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 .game-wrapper h2 {
   font-family: "Norwester", sans-serif;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 /* Score buttons container */
 .score-buttons {
   display: flex;
   justify-content: center;
-  gap: 5vw;
-  margin: 10px 0;
+  gap: 4.8vw;
+  margin: 9px 0;
   flex-wrap: nowrap; /* Prevent buttons from wrapping onto new lines */
   width: 100%;
   z-index: 10;
@@ -60,9 +61,9 @@
 
 /* Score buttons */
 .score-buttons button {
-  width: 35vw; /* Set a fixed width */
+  width: 30vw; /* Set a fixed width */
   max-width: 150px;
-  height: 35vw; /* Set a fixed height, same as width */
+  height: 30vw; /* Set a fixed height, same as width */
   max-height: 150px;
   padding: 0; /* Remove padding */
   margin: 0; /* Remove margin */
