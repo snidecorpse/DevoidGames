@@ -56,6 +56,24 @@
     transition: transform 0.3s; /* Smooth transform for hover effects */
   }  
   
+  .x {
+    position: fixed;
+    width: 100px; /* Set the width of the circular button */
+    height: 100px; /* Set the height to match the width */
+    border-radius: 50%; /* Makes the button circular */
+    background-image: url('src/assets/x.png'); /* Your PNG file */
+    background-size: contain; /* Ensures the image fits inside the circle */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling of the image */
+    background-color: #ffffff; /* Fallback background color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s; /* Smooth transform for hover effects */
+  }  
+  
+
   .github {
     background-color: #ffffff;
   }
@@ -64,12 +82,12 @@
     background-color: #ffffff;
   }
   
-  .facebook {
-    background-color: #1877F2;
+  .x {
+    background-color: #ffffff;
   }
   
-  .facebook:hover {
-    background-color: #165EBC;
+  .x:hover {
+    background-color: #ffffff;
   }
   
   .instagram {

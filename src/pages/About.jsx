@@ -8,8 +8,8 @@ const About = () => {
       <p>Welcome to our amazing app! We strive to create the best experience for our users.</p>
       
       <div className="social-links">
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-button github"> </a>
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-button facebook">Facebook</a>
+        <a href="https://https://github.com/snidecorpse/DevoidGames.com" target="_blank" rel="noopener noreferrer" className="social-button github"> </a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-button x"> </a>
         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-button instagram">Instagram</a>
       </div>
     </div>
