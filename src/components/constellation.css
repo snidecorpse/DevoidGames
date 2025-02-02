@@ -1,0 +1,12 @@
+/* Ensure the Three.js canvas fills the entire viewport */
+.constellation-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000; /* Dark background for a starry look */
+    z-index: -1; /* Send the background behind other content */
+  }
+  
