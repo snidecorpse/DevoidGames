@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { onSnapshot, collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import FloatingSettings from "../components/FloatingSettings";
+import Background from "../components/background"; // Import Three.js background
 import "./Home.css";
 import db from "../firebase";
 
@@ -25,6 +26,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <Background /> {/* Three.js background */}
       <div className="hero">
         <h1>Welcome to GameName here</h1>
         <p>Your journey starts here. Enter your username:</p>
