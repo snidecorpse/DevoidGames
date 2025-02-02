@@ -1,4 +1,4 @@
-.about-container body, html {
+body, html {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -11,20 +11,22 @@
   .about-container {
     text-align: center;
     padding: 20px;
+    position: relative; /* Set the container to relative so we can position the buttons inside it */
+    width: 100%; /* Ensure full width */
+    height: 100%; /* Ensure full height */
   }
   
   .social-links {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center; /* Centers the social media buttons horizontally */
-    gap: 120px; /* Adds space between buttons */
+    position: relative; /* Important for positioning child elements */
+    width: 100%;
+    height: 100%;
   }
   
   .social-button {
     width: 100px; /* Set a fixed width */
     height: 100px; /* Set a fixed height, same as width */
     padding: 0; /* Remove padding, we're setting width and height */
-    margin: 0; /* Removed margin for more controlled spacing */
+    margin: 0; /* Remove margin */
     border-radius: 50%; /* Makes the button circular */
     text-decoration: none;
     color: white;
@@ -33,68 +35,70 @@
     align-items: center;
     justify-content: center; /* Center the text inside the circle */
     transition: background-color 0.3s, transform 0.3s;
+    position: absolute; /* Position the buttons absolutely within the container */
   }
   
   .social-button:hover {
     transform: scale(1.1);
   }
   
-  .github {
-    position: fixed;
-    width: 100px; /* Set the width of the circular button */
-    height: 100px; /* Set the height to match the width */
-    border-radius: 50%; /* Makes the button circular */
+  .social-button.github {
     background-image: url('src/assets/git.png'); /* Your PNG file */
     background-size: contain; /* Ensures the image fits inside the circle */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents tiling of the image */
     background-color: #ffffff; /* Fallback background color */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.3s; /* Smooth transform for hover effects */
-  }  
+    top: 25%; /* Position the GitHub button 30% from the top */
+    left: 15%; /* Position the GitHub button 10% from the left */
+  }
   
-  .x {
-    position: fixed;
-    width: 100px; /* Set the width of the circular button */
-    height: 100px; /* Set the height to match the width */
-    border-radius: 50%; /* Makes the button circular */
+  .social-button.x {
     background-image: url('src/assets/x.png'); /* Your PNG file */
-    background-size: contain; /* Ensures the image fits inside the circle */
+    background-size: 60%; /* Adjust this value to scale the image down */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents tiling of the image */
     background-color: #ffffff; /* Fallback background color */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.3s; /* Smooth transform for hover effects */
-  }  
+    top: 55%; /* Position the X button 50% from the top */
+    left: 80%; /* Position the X button 70% from the left */
+  }
   
+  .social-button.instagram {
+    background-image: url('src/assets/insta.png'); /* Your PNG file */
+    background-size: 85%; /* Adjust this value to scale the image down */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents tiling of the image */
+    background-color: #ffffff; /* Fallback background color */
+    top: 90%; /* Position the X button 50% from the top */
+    left: 50%; /* Position the X button 70% from the left */
+  }
+  
+  
+  .social-button.instagram:hover {
+    background-color: #ffffff;
+    animation: glow 3s infinite alternate ease-in-out; /* Apply smooth pulse animation */
+}
 
-  .github {
+.social-button.github:hover {
     background-color: #ffffff;
-  }
-  
-  .github:hover {
+    animation: glow 3s infinite alternate ease-in-out; /* Apply smooth pulse animation */
+}
+
+.social-button.x:hover {
     background-color: #ffffff;
+    animation: glow 3s infinite alternate ease-in-out; /* Apply smooth pulse animation */
+}
+
+
+
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(68, 64, 64, 0.5); /* Soft initial white glow */
   }
-  
-  .x {
-    background-color: #ffffff;
+  50% {
+    box-shadow: 0 0 30px rgba(68, 64, 64, 0.5), 0 0 50px rgba(255, 255, 255, 1); /* Larger, more intense white glow */
   }
-  
-  .x:hover {
-    background-color: #ffffff;
+  100% {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 0px rgba(68, 64, 64, 0.5); /* Return to soft initial glow */
   }
-  
-  .instagram {
-    background-color: #C13584;
-  }
-  
-  .instagram:hover {
-    background-color: #9B2D6F;
-  }
-  
+}

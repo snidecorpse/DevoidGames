@@ -10,7 +10,7 @@ const About = () => {
       <div className="social-links">
         <a href="https://https://github.com/snidecorpse/DevoidGames.com" target="_blank" rel="noopener noreferrer" className="social-button github"> </a>
         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-button x"> </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-button instagram">Instagram</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-button instagram"> </a>
       </div>
     </div>
   );
