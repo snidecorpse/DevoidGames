@@ -245,17 +245,20 @@ const Background = () => {
     // CLEANUP ON UNMOUNT
     // ==================================================
     return () => {
-      window.removeEventListener("resize", onWindowResize);
-      window.removeEventListener("mousemove", onMouseMove);
-      gui.destroy();
-      if (galaxyPoints) {
-        galaxyGeometry.dispose();
-        galaxyMaterial.dispose();
-        scene.remove(galaxyPoints);
-      }
-      mountRef.current.removeChild(renderer.domElement);
-      renderer.dispose();
-    };
+        window.removeEventListener("resize", onWindowResize);
+        window.removeEventListener("mousemove", onMouseMove);
+        gui.destroy();
+        if (galaxyPoints) {
+          galaxyGeometry.dispose();
+          galaxyMaterial.dispose();
+          scene.remove(galaxyPoints);
+        }
+        // Check if mountRef.current exists before trying to remove the renderer
+        if (mountRef.current) {
+          mountRef.current.removeChild(renderer.domElement);
+        }
+        renderer.dispose();
+      };
   }, []);
 
   return <div ref={mountRef} className="webgl"></div>;
