@@ -5,6 +5,8 @@ import db from "../firebase";
 
 
 function Game() {
+    
+    
   const [currentIndex, setCurrentIndex] = useState(0);
   // const [leaderboard, setLeaderboard] = useState([]);
   // const [challenges, setChallenges] = useState([]);
